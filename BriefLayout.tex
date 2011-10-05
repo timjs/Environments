@@ -1,0 +1,23 @@
+\startenvironment BriefLayout
+\environment ./DocumentLayout
+
+
+%% Fonts %%
+
+\definefontfeature[default]
+	[liga=yes,kern=yes,tlig=yes,trep=yes,onum=yes]%FIXME
+
+\definetypeface[SlimbachClassic][rm][Xserif][Warnock Pro]
+\definetypeface[SlimbachClassic][ss][Xsans][Cronos Pro]
+\setupbodyfont[SlimbachClassic]
+
+
+%% Texts %%
+
+\setupindenting[no]
+\setupwhitespace[medium]
+
+
+\stopenvironment
+
+% vim: ts=2 sw=2
