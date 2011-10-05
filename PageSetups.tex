@@ -1,0 +1,177 @@
+% PageSetups.tex
+% Usefull pagelayouts for ConTeXt
+%
+% Author:  Tim Steenvoorden
+% Changed: 1 Dec 2010
+%
+\startenvironment PageSetups
+
+\writestatus{environment}{Loading page setups}
+
+\startsetups[page:onelined]
+  \setuplayout
+    [header=\lineheight,
+     headerdistance=\lineheight,
+     footerdistance=\lineheight,
+     footer=\lineheight]
+\stopsetups
+
+\startsetups[page:template]
+  \setups[page:onelined]
+  \setuplayout
+    [topspace=,
+     height=,
+     backspace=,
+     width=,
+     margin=]
+\stopsetups
+
+\startsetups[page:slimsquared]
+  \setuplayout
+    [topspace=2.6cm,
+     height=22.0cm,
+     backspace=3.3cm,
+     width=11.0cm,
+     margin=3.3cm,
+     header=\lineheight,
+     headerdistance=2\lineheight,
+     footerdistance=2\lineheight,
+     footer=\lineheight]
+  \setupheader[state=none]
+  \setupfooter[state=none]
+\stopsetups
+
+\startsetups[page:classicthesis]
+  \setuplayout
+    [topspace=1.1cm,
+     header=\lineheight,
+     headerdistance=0.8cm,
+     height=fit,
+     footerdistance=1.3cm,
+     footer=\lineheight,
+     bottomspace=1.8cm,
+     backspace=3.6cm,
+     width=fit,
+     cutspace=6.3cm]
+\stopsetups
+
+\startsetups[page:reflections]
+  \setuplayout
+    [topspace=1.9cm,
+     header=\zeropoint,
+     headerdistance=\zeropoint,
+     height=fit,
+     footerdistance=0.6cm,
+     footer=\lineheight,
+     bottomspace=1.5cm,
+     backspace=7.8cm,
+     width=fit,
+     cutspace=1.9cm]
+\stopsetups
+
+\startsetups[page:calculate]
+  \setups[page:onelined]
+  \setuplayout
+    [width=0.625\paperwidth,
+     height=1.414\makeupwidth]
+  \setuplayout
+    [topspace=\dimexpr((\paperheight-\makeupheight)/3),
+     backspace=\dimexpr((\paperwidth-\makeupwidth)/3)]
+  \setuplayout
+    [margin=\backspace]
+\stopsetups
+
+\startsetups[page:circular]
+  \setups[page:onelined]
+  \setuplayout
+    [topspace=2.9cm,
+     height=21.0cm,
+     backspace=2.1cm,
+     width=14.8cm,
+     margin=2.1cm]
+\stopsetups
+
+\startsetups[page:div10:sqrt3]
+  \setups[page:onelined]
+  \setuplayout
+    [topspace=3.5cm,
+     height=22.7cm,
+     backspace=2.6cm,
+     width=13.1cm,
+     margin=2.6cm]
+\stopsetups
+
+\startsetups[page:div6:sqrt5]
+  \setuplayout
+    [topspace=2.1cm,
+     height=23.5cm,
+     backspace=3.5cm,
+     width=10.5cm,
+     margin=3.5cm,
+     header=\lineheight,
+     headerdistance=\lineheight,
+     footerdistance=2\lineheight,
+     footer=\lineheight]
+\stopsetups
+
+\startsetups[page:div6:sqrt6]
+  \setuplayout
+    [topspace=1.3cm,
+     height=25.7cm,
+     backspace=3.5cm,
+     width=10.5cm,
+     margin=3.5cm,
+     header=\lineheight,
+     headerdistance=\lineheight,
+     footerdistance=2\lineheight,
+     footer=\lineheight]
+\stopsetups
+
+\startsetups[page:doublehalf]
+  \setuplayout
+    [topspace=1.2cm,
+     height=26.3cm,
+     backspace=3.5cm,
+     width=10.5cm,
+     margin=3.5cm,
+     header=\lineheight,
+     headerdistance=\lineheight,
+     footerdistance=3\lineheight,
+     footer=\lineheight]
+\stopsetups
+
+\startsetups[page:ancient]
+  \newdimen\upper
+  \newdimen\inner
+  \upper=.1\paperheight
+  \inner=.1\paperwidth
+
+	\setuplayout
+		[height=fit,
+		topspace=\dimexpr(\upper-\headerheight-\headerdistance),
+		header=\lineheight,
+		headerdistance=.1\upper,
+		footerdistance=.2\upper,
+		footer=\lineheight,
+		bottomspace=\dimexpr(2\upper-\footerheight-\footerdistance),
+		width=fit,
+		edgedistance=\zeropoint,
+		margin=.9\inner,
+		margindistance=.1\inner]
+
+	\startmode[singlesided]
+		\setuplayout
+			[backspace=1.5\inner]
+	\stopmode
+
+	\startnotmode[singlesided]
+		\setuplayout
+			[backspace=\inner,
+			rightedge=\inner]
+	\stopnotmode
+
+\stopsetups
+
+\stopenvironment
+
+% vim: ts=2 sw=2 et

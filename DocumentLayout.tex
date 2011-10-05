@@ -1,0 +1,286 @@
+% DocumentLayout.tex
+% Default layout for all documents
+%
+% Author::  Tim Steenvoorden
+% Changed:: 11 Jun 2010
+%
+%
+% == TODO's
+%
+% * interactioncolor
+% * (re)define
+%
+\startenvironment DocumentLayout
+\environment ~/Documents/DocumentDefinitions
+
+% -----------------------------------------------------------------------------
+% Language
+% -----------------------------------------------------------------------------
+
+\mainlanguage[nl]
+
+\setuplanguage[nl]
+  [leftquote=\upperleftsinglesixquote,
+   rightquote=\upperrightsingleninequote,
+   leftquotation=\upperleftdoublesixquote,
+   rightquotation=\upperrightdoubleninequote]
+
+\setupheadtext[nl]
+  [content={Inhoudsopgave},
+   tables={Lijst van tabellen},
+   figures={Lijst van figuren},
+   graphics={Lijst van grafieken},
+   intermezzi={Lijst van intermezzo's},
+   abbreviations={Lijst van afkortingen},
+   logos={Lijst van logo's},
+   units={Lijst van eenheden}]
+   %pubs={Literatuur}
+   %index={Index}
+
+% -----------------------------------------------------------------------------
+% Titlepage
+% -----------------------------------------------------------------------------
+
+\setuptitlelayout
+  {\startalignment[center]
+     \doifsomething{\getvariable{info}{subtitle}}
+       {{\bfa \getvariable{info}{subtitle}}
+        \blank[3*big]}
+     {\ss\bfd \getvariable{info}{title}}
+     \blank[3*big]
+     {\tfb \getvariable{info}{author}}
+     \blank[2*big]
+     {\tfb\getvariable{info}{date}}
+     \doifsomething{\getvariable{info}{publisher}}
+       {\blank[9*big]
+        {\tfa\getvariable{info}{publisher}}}
+     \blank[6*big]
+   \stopalignment}
+
+\setuptitlepagelayout
+  {\startstandardmakeup
+     \vfill
+     \placetitle
+     \vfill
+     \vfill
+   \stopstandardmakeup}
+
+% -----------------------------------------------------------------------------
+% Text
+% -----------------------------------------------------------------------------
+
+\setupdelimitedtext[speech][1]
+  [left={\symbol[leftquotation]},
+   right={\symbol[rightquotation]}]
+
+\setupdelimitedtext[speech][2]
+  [left={\symbol[leftquote]},
+   right={\symbol[rightquote]}]
+
+\setupdelimitedtext[quotation]
+  [spacebefore=medium,
+   style=\em]
+
+\setupindenting[yes,small]
+
+\setupitemize[each]
+  [packed]
+
+\setupurl
+  [style=\tt,
+   urlspace=yes]
+
+% -----------------------------------------------------------------------------
+% Bodyfont
+% -----------------------------------------------------------------------------
+
+\definefontfeature[default][default]
+  [onum=yes]%FIXME: hack
+\definefontfeature[smallcaps][smallcaps]
+  [onum=yes]%FIXME: hack
+
+\setupbodyfontenvironment[default]
+  [em=italic]
+\setupbodyfont[11pt]
+
+\setupcapitals
+  [sc=yes]
+
+% -----------------------------------------------------------------------------
+% Pagelayout
+% -----------------------------------------------------------------------------
+
+\usemodule[dividepage]%FIXME: to DocumentLayout.tex
+
+\setuppapersize[A4][A4]
+
+\setupheader
+  [style=\sc]
+\setupfooter
+  [style=\sc]
+
+% Pagenumbering and headertexts for single-sided and double-sided documents.
+\startmode[singlesided] % Double sided is default.
+  \setuppagenumbering
+    [alternative=singlesided,
+     location={footer,middle}]
+  \setupheadertexts[chapter]
+
+  \writestatus{modes}{singlesided pagelayout activated}
+\stopmode
+\startnotmode[singlesided]
+  \setuppagenumbering
+    [alternative=doublesided,
+     location={footer,right}]
+  \setupheadertexts[][section][chapter][]
+
+  \writestatus{modes}{doublesided pagelayout activated}
+\stopnotmode
+
+% Pagenumbering for different documentparts.
+\startsectionblockenvironment[frontpart] % For frontmatter
+  \setuppagenumbering
+    [conversion=romannumerals]
+\stopsectionblockenvironment
+\startsectionblockenvironment[bodypart] % For bodymatter
+  \setuppagenumber
+    [number=1]
+\stopsectionblockenvironment
+
+% -----------------------------------------------------------------------------
+% Heads and Lists
+% -----------------------------------------------------------------------------
+
+\setupheads
+  [aligntitle=float] % Causes heads to wrap like normal text.
+
+\setuphead[part]
+  [placehead=yes,
+   alternative=middle,
+   style=\ss\bfd,
+   numberstyle=\bfb,
+   aligntitle=no]
+\setuphead[chapter,title]
+  [style=\ss\bfc,
+   header=empty,
+   aligntitle=no]
+\setuphead[section,subject]
+  [style=\ss\bfb]
+\setuphead[subsection,subsubject]
+  [style=\ss\bfa]
+\setuphead[subsubsection,subsubsubject]
+  [style=\ss\bf]
+
+\setupcombinedlist[content]
+  [level=subsection,
+   interaction=all,
+   width=2em]
+\setuplist[part]
+  [pagenumber=no,
+   before={\blank[3*big]},
+   style=\ss\bfa]
+\setuplist[chapter]
+  [style=\ss\bf]
+\setuplist[section]
+  [margin=3em]
+\setuplist[subsection]
+  [margin=5em]
+
+\setuplist[figure,table]
+  [interaction=all]
+
+% -----------------------------------------------------------------------------
+% Floats and Captions
+% -----------------------------------------------------------------------------
+
+\setupfloatsplitting
+  [lines=auto] % Automatically determine number of caption lines???
+
+\setupexternalfigures
+  [directory={figuren,afbeeldingen,figures,images}]
+
+\setupcaptions
+  [headstyle=\ss\bf,
+   align=middle]
+\setupcaption[intermezzo,table]
+  [location=top]
+
+%\setupfloat[intermezzo]
+  %[background=screen]
+
+% -----------------------------------------------------------------------------
+% Tables
+% -----------------------------------------------------------------------------
+
+\chardef\characteralignmentmode=2
+
+\setupTABLE
+  [frame=off,
+   left=|\hskip 0.5em|,
+   right=|\hskip 0.5em|,%FIXME: ||?
+   style=\tb]
+\setupTABLE[row][first]
+  [topframe=on,
+   bottomframe=on,
+   rulethickness=3\linewidth,
+   align=middle]
+\setupTABLE[row][last]
+  [bottomframe=on,
+   rulethickness=3\linewidth]
+
+% -----------------------------------------------------------------------------
+% Modes
+% -----------------------------------------------------------------------------
+
+\startmode[color]
+  \setupcolors[state=start]
+  
+  \setupframedtexts
+    [background=screen]
+
+  \writestatus{modes}{colors activated}
+\stopmode
+
+\startmode[booklet]
+  \setuppapersize[A5][A4,landscape]
+  \setuparranging[2UP]
+
+  \setupbodyfont[9pt]
+
+  \writestatus{modes}{booklet activated}
+\stopmode
+
+\startmode[test]
+  %\showlayout   % Add four pages that show margins, layout sizes etc.
+  \showsetups    % Typeset a list of all defined sizes (variables) and their values.
+  \showframe    % Show frames of text area, layers, boxes etc.
+  \showmakeup    % Show some otherwise invisible markup.
+  %\showgrid     % Make line grid visible.
+  
+  \enablemode[concept]
+  \writestatus{modes}{testing activated}
+\stopmode
+
+\startmode[concept]
+  \version[concept]
+  
+  \setupcomment
+    [state=start]
+
+  \writestatus{modes}{concept activated}
+\stopmode
+
+\startmode[screen] % Print-mode is default
+  \setupinteraction
+    [state=start,
+     style=normal]
+  
+  \placebookmarks
+    [part,chapter,section,subsection]
+  
+  \writestatus{modes}{interaction activated}
+\stopmode
+
+\stopenvironment
+
+% vim: ts=2 sw=2 et

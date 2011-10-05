@@ -1,0 +1,86 @@
+% DocumentDepricated.tex
+% Macro's not to be used any more, just for backward compatibility
+%
+% Author: Tim Steenvoorden
+% Last Changed: 31 Aug 2010
+%
+
+% ------------------------------------------------------------------------------
+% From DocumentLayout:
+% ------------------------------------------------------------------------------
+
+\setuptables
+	[rulethickness=0.03em,
+	 split=repeat]
+
+% ------------------------------------------------------------------------------
+% From UniversiteitLayout:
+% ------------------------------------------------------------------------------
+
+\setuptables
+	[bodyfont=small,
+	 distance=small
+	 align=middle]
+
+% ------------------------------------------------------------------------------
+% From DocumentDefinitions:
+% ------------------------------------------------------------------------------
+
+% ???
+\definestartstop[abstract]
+  [style=bold,
+   before=\startnarrower,
+   after=\stopnarrower]
+
+% use \periods
+\define\ellipsis
+  {\ldots}
+
+% use tabbeddata
+\defineseparatedlist[tabbed]
+  [separator=tab,
+   before=\bTABLE,
+   after=\eTABLE,
+   first=\bTR,
+   last=\eTR,
+   left=\bTC,
+   right=\eTC]
+
+\defineseparatedlist[comma]
+	[seperator={,},
+	 quotechar={"},
+	 before=\bTABLE,
+	 after=\eTABLE,
+	 first=\bTR,
+	 last=\eTR,
+	 left=\bTC,
+	 right=\eTC]
+
+\defineseparatedlist[tab]
+  [separator=tab,
+	 quotechar={"},
+   before=\bTABLE,
+   after=\eTABLE,
+   first=\bTR,
+   last=\eTR,
+   left=\bTC,
+   right=\eTC]
+
+\defineseparatedlist[semicolon]
+	[seperator={;},
+	 quotechar={"},
+	 before=\bTABLE,
+	 after=\eTABLE,
+	 first=\bTR,
+	 last=\eTR,
+	 left=\bTC,
+	 right=\eTC]
+
+\define\FL
+  {\HL[3]}
+\define\ML
+  {\HL}
+\define\LL
+  {\HL[3]}
+
+% vim: ts=2 sw=2

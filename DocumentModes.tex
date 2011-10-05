@@ -1,0 +1,83 @@
+% DocumentModes.tex
+% Modes not beloning to any specific type of document
+%
+% Author:  Tim Steenvoorden
+% Changed: 26 Feb 2011
+%
+\startenvironment DocumentModes
+
+\writestatus{environment}{Loading standard document modes}
+
+% ------------------------------------------------------------------------------
+% Versions
+% ------------------------------------------------------------------------------
+
+\startmode[correction]
+  \setupinterlinespace[big]
+  %\setupspellchecking% Jammergenoeg alleen in MKVI
+    %[state=on]
+  \version[concept]
+\stopmode
+
+\startmode[draft]
+  \version[temporary]
+  \enablemode[quick]
+\stopmode
+
+\startmode[quick]
+  \setupexternalfigures
+    [option=empty]
+\stopmode
+
+% ------------------------------------------------------------------------------
+% Imposition
+% ------------------------------------------------------------------------------
+
+\startmode[booklet]
+  \setuppapersize[A5][A4,landscape]
+  \setuparranging[2UP]
+  \setups[page:a5paper]%FIXME
+\stopmode
+
+\startmode[sideways]
+  \setuppapersize[A5][A4,landscape]
+  \setuparranging[2SIDE]
+  \setups[page:a5paper]%FIXME
+\stopmode
+
+% ------------------------------------------------------------------------------
+% Show
+% ------------------------------------------------------------------------------
+
+\startmode[makeup]
+  %\showlayout             % Add four pages that show margins, layout sizes etc.
+  \showframe               % Show frames of text area, layers, boxes etc.
+  \showsetups              % Typeset a list of all defined sizes and their values.
+  %\showmakeup             % Show some otherwise invisible markup.
+  %\showstruts             % Display struts (invisible placeholders for proper minimum line heights).
+  %\showgrid               % Make line grid visible.
+  \showfontstrip           % Current typeface combinations, with x-heights.
+  \showbodyfont            % Actual bodyfont family with all variants.
+  %\showbodyfontenvironment% Draws a table that shows which point sizes match the relative sizes.
+  %\showcharacters         % List of available chars of actual bodyfont encoding.
+  %\showaccents            % Shows A-Z and a-z with all available accents.
+  %\showmathcharacters     % List of all the available math characters.
+  %\showsymbolset[name]    % Shows all the symbols within a given symbol set.
+\stopmode
+
+\startmode[alphabet]
+  \startlines
+  \setbox\scratchbox\hbox{abcdefghijklmnopqrstuvwxyz}
+  alphabet: \the\wd\scratchbox
+  \setbox\scratchbox\hbox{ABCDEFGHIJKLMNOPQRSTUVWXYZ}
+  ALPHABET: \the\wd\scratchbox
+  \setbox\scratchbox\hbox{abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ}
+  Alphabet: \the\wd\scratchbox
+  \setbox\scratchbox\hbox{abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789}
+  Alphanumeric: \the\wd\scratchbox
+  \stoplines
+\stopmode
+
+\stopenvironment
+
+% vim: ts=2 sw=2 et

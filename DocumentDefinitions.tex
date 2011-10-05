@@ -1,0 +1,211 @@
+% DocumentDefinitions.tex
+% Macro's not beloning to any specific type of document
+%
+% Author:  Tim Steenvoorden
+% Changed: 13 Apr 2011
+%
+\startenvironment DocumentDefinitions
+
+\writestatus{environment}{Loading shared document definitions}
+
+% -----------------------------------------------------------------------------
+% Language
+% -----------------------------------------------------------------------------
+
+\enableregime[utf]
+
+\setuplanguage[en]
+  [spacing=packed]
+\setuplanguage[nl]
+  [leftquote=\upperleftsinglesixquote,
+   rightquote=\upperrightsingleninequote,
+   leftquotation=\upperleftdoublesixquote,
+   rightquotation=\upperrightdoubleninequote]
+  
+
+% -----------------------------------------------------------------------------
+% Typeface
+% -----------------------------------------------------------------------------
+
+\definefontfeature[tabular][default]
+  [tnum=yes]
+\definefont[tb][Serif*tabular]
+
+% -----------------------------------------------------------------------------
+% Directories
+% -----------------------------------------------------------------------------
+
+\setupexternalfigures
+  [directory={figuren,afbeeldingen,figures,images,
+              ../figuren,../afbeeldingen,../figures,../images}]
+
+% -----------------------------------------------------------------------------
+% Text
+% -----------------------------------------------------------------------------
+
+\define[1]\emph
+  {{\em #1}}
+\definestartstop[emphasize]
+  [style=\em]
+
+\define[1]\alert
+  {{\ss\bf #1}}
+
+\define[1]\online
+  {\useurl[online][#1]
+   \goto{\url[online]}[url(#1)]}
+
+\defineparagraphs[sidebysidetext]
+  [n=2]
+
+\setupquote[2]
+  [left={\symbol[leftquotation]},
+   right={\symbol[rightquotation]}]
+\setupquotation[2]
+  [left={\symbol[leftquote]},
+   right={\symbol[rightquote]}]
+
+% -----------------------------------------------------------------------------
+% Referencing
+% -----------------------------------------------------------------------------
+
+\starttexdefinition see [#1:#2]
+  \doifdefinedelse{in#1}
+    {\getvalue{in#1}[#1:#2]}
+    {\writestatus{warning}{referenceformat in#1 not defined}
+     \in[#1:#2]}
+\stoptexdefinition
+
+\definereferenceformat[insec]
+  [left=§]
+\definereferenceformat[inchp]
+  [text=\labeltext{chapter}]
+\definereferenceformat[inapp]
+  [text=\labeltext{appendix}]
+\definereferenceformat[infig]
+  [text=\labeltext{figure}]
+\definereferenceformat[intab]
+  [text=\labeltext{table}]
+\definereferenceformat[infor]
+  [left=(,
+   right=)]
+
+% -----------------------------------------------------------------------------
+% Math
+% -----------------------------------------------------------------------------
+
+\usemodule[units]
+\usemodule[mathsets]
+
+\definemathcommand[arcsinh][nolop]
+  {\mfunction{arcsinh}}
+\definemathcommand[arccosh][nolop]
+  {\mfunction{arccosh}}
+\definemathcommand[arctanh][nolop]
+  {\mfunction{arctanh}}
+\definemathcommand[e][nolop]
+  {\mfunction{e}}
+
+\definemathset[bra]
+  [left=\langle,
+   right=\vert]
+\definemathset[ket]
+  [left=\vert,
+   right=\rangle]
+\definemathset[braket]
+  [left=\langle,
+   right=\rangle]
+\definemathset[com]
+  [left={[},
+   middle={,},
+   right={]}]
+\definemathset[anticom]
+  [middle={,}]
+\definemathset[expect]
+  [left=\langle,
+   right=\rangle]
+
+\redefine\d
+  {{\rm d}}
+\define[2]\tdiff
+  {\frac{\d #1}{\d #2}}
+\define[1]\dd
+  {\tdiff{}{#1}}
+\define\p
+  {\partial}
+\define[2]\pdiff
+  {\frac{\p #1}{\p #2}}
+\define[1]\pp
+  {\pdiff{}{#1}}
+
+\define[1]\vec % cannot be \redefine'ed
+  {{\bf #1}}
+\define[1]\mat % cannot be \redefine'ed
+  {\text{\ss\bf #1}}
+%\define[1]\op
+  %{\hat{#1}}
+
+\define\cross
+  {\times}
+\define\Grad
+  {\vec{\nabla}}
+\define[1]\Div
+  {\vec{\nabla}\cdot\vec{#1}}
+\define[1]\Curl
+  {\vec{\nabla}\cross\vec{#1}}
+\define\Lapl
+  {\vec{\nabla}^2}
+
+\redefine\implies
+  {\Rightarrow}
+\redefine\iff
+  {\Leftrightarrow}
+%\define\to
+%\define\mapsto
+%\define\leadsto
+
+\define[1]\E
+  {\math{\cdot 10^{#1}}}
+\define\half
+  {\frac12}
+\define\third
+  {\frac13}
+
+\starttexdefinition complexstartalignedformula [#1]
+  \startformula %\stopformula
+    \startalign[#1]
+\stoptexdefinition
+
+\definecomplexorsimpleempty\startalignedformula %\stopalignedformula
+
+\starttexdefinition stopalignedformula
+    \stopalign
+  \stopformula
+\stoptexdefinition
+
+% -----------------------------------------------------------------------------
+% Tabbed data
+% -----------------------------------------------------------------------------
+
+\usemodule[database]
+
+\defineseparatedlist[tabbeddata]
+  [separator=tab,
+   first=\NC,
+   right=\NC,
+   last=\NR]
+
+\starttexdefinition externaltabbeddata [#1]
+  \processseparatedfile[tabbeddata][#1]
+\stoptexdefinition
+
+% -----------------------------------------------------------------------------
+% Bibliography
+% -----------------------------------------------------------------------------
+
+\define\inlinecite
+  {\cite[authoryear]}
+
+\stopenvironment
+
+% vim: ts=2 sw=2 et
